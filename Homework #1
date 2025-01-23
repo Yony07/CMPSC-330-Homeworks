@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <algorithm>
+
+void validateSudokuRow(const std::vector<int>& row) {
+    std::cout << "Row: [ ";
+    for (int num : row) {
+        std::cout << num << " ";
+    }
+    std::cout << "]\n";
+
+    // Check if the length of the row is exactly 9
+    if (row.size() != 9) {
+        std::cout << "Error: The row must contain exactly 9 numbers.\n";
+        return;
+    }
+
+    // Check if all numbers are between 1 and 9
+    for (int num : row) {
+        if (num < 1 || num > 9) {
+            std::cout << "Error: All numbers must be between 1 and 9. Found: " << num << "\n";
+            return;
+        }
+    }
+
+    // Check for duplicate numbers
+    std::set<int> uniqueNumbers(row.begin(), row.end());
+    if (uniqueNumbers.size() != row.size()) {
+        std::cout << "Error: Duplicate numbers found in the row.\n";
+        std::cout << "Duplicates: ";
+        for (int num : row) {
+            if (std::count(row.begin(), row.end(), num) > 1) {
+                std::cout << num << " ";
+            }
+        }
+        std::cout << "\n";
+        return;
+    }
+
+    // If all checks pass, the row is valid
+    std::cout << "The row is valid.\n";
+}
+
+int main() {
+    // Hardcoded list of numbers
+    std::vector<int> sudokuRow = {1, 5, 2, 6, 7, 8, 3, 4, 9};
+
+    validateSudokuRow(sudokuRow);
+
+    return 0;
+}
