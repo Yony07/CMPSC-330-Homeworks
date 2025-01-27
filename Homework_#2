@@ -1,0 +1,90 @@
+
+//Yony Rober - Convert Decimals to Binary, Octal, and Hexidecimal
+// 
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+// Function prototypes
+std::string convDecimalToBinary(int decimal);
+std::string convDecimalToHex(int decimal);
+std::string convDecimalToOctal(int decimal);
+void convDecimal(int decimal);
+
+int main() {
+    std::cout << "Welcome to the Decimal Conversion Program!\n";
+    std::cout << "This program converts a decimal number to Binary, Hexadecimal, and Octal.\n";
+
+    int decimal;
+    while (true) {
+        std::cout << "\nEnter a positive integer (0 to 2,000,000) or -1 to exit: ";
+        std::cin >> decimal;
+
+        // Exit condition
+        if (decimal == -1) {
+            std::cout << "Exiting the program. Goodbye!\n";
+            break;
+        }
+
+        // Input validation
+        while (decimal < 0 || decimal > 2000000) {
+            std::cout << "Invalid input! Please enter a number between 0 and 2,000,000: ";
+            std::cin >> decimal;
+        }
+
+        // Call conversion function
+        convDecimal(decimal);
+    }
+
+    return 0;
+}
+
+// Function to convert decimal to binary
+std::string convDecimalToBinary(int decimal) {
+    std::string binary = "";
+    do {
+        binary += std::to_string(decimal % 2);
+        decimal /= 2;
+    } while (decimal > 0);
+
+    std::reverse(binary.begin(), binary.end());
+    return binary;
+}
+
+// Function to convert decimal to hexadecimal
+std::string convDecimalToHex(int decimal) {
+    const std::string hexDigits = "0123456789ABCDEF";
+    std::string hex = "";
+    do {
+        hex += hexDigits[decimal % 16];
+        decimal /= 16;
+    } while (decimal > 0);
+
+    std::reverse(hex.begin(), hex.end());
+    return hex;
+}
+
+// Function to convert decimal to octal
+std::string convDecimalToOctal(int decimal) {
+    std::string octal = "";
+    do {
+        octal += std::to_string(decimal % 8);
+        decimal /= 8;
+    } while (decimal > 0);
+
+    std::reverse(octal.begin(), octal.end());
+    return octal;
+}
+
+// Function to call all three conversions and display results
+void convDecimal(int decimal) {
+    std::string binary = convDecimalToBinary(decimal);
+    std::string hex = convDecimalToHex(decimal);
+    std::string octal = convDecimalToOctal(decimal);
+
+    std::cout << "\nResults for Decimal: " << decimal << "\n";
+    std::cout << "Binary: " << binary << "\n";
+    std::cout << "Hexadecimal: " << hex << "\n";
+    std::cout << "Octal: " << octal << "\n";
+}
